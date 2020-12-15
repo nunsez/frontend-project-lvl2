@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
+import diffEngine from '../src/index.js';
 
 const gendiff = new Command();
 
@@ -8,6 +9,8 @@ gendiff
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
   .arguments('<filepath1> <filepath2>')
-  .action((filepath1, filepath2) => {}); // should fix it
+  .action((filepath1, filepath2) => {
+    console.log(diffEngine(filepath1, filepath2));
+  });
 
 gendiff.parse(process.argv);
