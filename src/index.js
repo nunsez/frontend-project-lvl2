@@ -2,7 +2,7 @@ import _ from 'lodash';
 import * as path from 'path';
 import * as fs from 'fs';
 
-const diffEngine = (filepath1, filepath2) => {
+const getDifference = (filepath1, filepath2) => {
   const validPath1 = path.resolve(process.cwd(), filepath1);
   const validPath2 = path.resolve(process.cwd(), filepath2);
 
@@ -48,4 +48,4 @@ const diffEngine = (filepath1, filepath2) => {
   return unquoted;
 };
 
-export default diffEngine;
+export default getDifference;
