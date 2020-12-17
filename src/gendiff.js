@@ -14,18 +14,13 @@ const gendiff = (object1, object2) => {
     const deletedKey = `- ${key}`;
     const addedKey = `+ ${key}`;
 
-    if (isProp1Exist && isProp2Exist) {
-      if (value1 === value2) {
-        acc[`${' '.repeat(2)}${key}`] = value1; // indent(repeat '' x 2) for unmodifed key/value
-      } else {
-        acc[deletedKey] = value1;
-        acc[addedKey] = value2;
-      }
+    if (isProp1Exist && isProp2Exist && value1 === value2) {
+      acc[`${' '.repeat(2)}${key}`] = value1; // indent(repeat '' x 2) for unmodifed key/value
     }
-    if (!isProp2Exist) {
+    if (isProp1Exist && value1 !== value2) {
       acc[deletedKey] = value1;
     }
-    if (!isProp1Exist) {
+    if (isProp2Exist && value1 !== value2) {
       acc[addedKey] = value2;
     }
 
