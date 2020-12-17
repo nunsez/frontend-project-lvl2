@@ -2,9 +2,7 @@ import _ from 'lodash';
 import parse from './parsers.js';
 
 const gendiff = (object1, object2) => {
-  const keys1 = _.keys(object1);
-  const keys2 = _.keys(object2);
-  const allKeys = _.union(keys1, keys2).sort();
+  const allKeys = _.union(_.keys(object1), _.keys(object2)).sort();
 
   const result = allKeys.reduce((acc, key) => {
     const isProp1Exist = _.has(object1, key);
