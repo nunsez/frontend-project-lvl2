@@ -1,26 +1,16 @@
 import _ from 'lodash';
-import path from 'path';
-import fs from 'fs';
+import parse from './parsers.js';
 
-const getDifference = (filepath1, filepath2) => {
-  const validPath1 = path.resolve(process.cwd(), filepath1);
-  const validPath2 = path.resolve(process.cwd(), filepath2);
-
-  const data1 = fs.readFileSync(validPath1, 'utf-8');
-  const data2 = fs.readFileSync(validPath2, 'utf-8');
-
-  const json1 = JSON.parse(data1);
-  const json2 = JSON.parse(data2);
-
-  const keys1 = _.keys(json1);
-  const keys2 = _.keys(json2);
+const gendiff = (object1, object2) => {
+  const keys1 = _.keys(object1);
+  const keys2 = _.keys(object2);
   const allKeys = _.union(keys1, keys2).sort();
 
   const result = allKeys.reduce((acc, key) => {
-    const isProp1Exist = _.has(json1, key);
-    const isProp2Exist = _.has(json2, key);
-    const value1 = json1[key];
-    const value2 = json2[key];
+    const isProp1Exist = _.has(object1, key);
+    const isProp2Exist = _.has(object2, key);
+    const value1 = object1[key];
+    const value2 = object2[key];
     const deletedKey = `- ${key}`;
     const addedKey = `+ ${key}`;
 
@@ -46,6 +36,13 @@ const getDifference = (filepath1, filepath2) => {
   const unquoted = stringifyResult.replace(/"|,/g, '');
 
   return unquoted;
+};
+
+const getDifference = (filepath1, filepath2) => {
+  const object1 = parse(filepath1);
+  const object2 = parse(filepath2);
+
+  return gendiff(object1, object2);
 };
 
 export default getDifference;

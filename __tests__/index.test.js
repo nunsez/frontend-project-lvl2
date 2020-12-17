@@ -11,12 +11,28 @@ const getFixturePath = (filename) =>
 const readFile = (filename) =>
   fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-test('correct comparison of flat json files', () => {
-  const filepath1 = getFixturePath('file1.json');
-  const filepath2 = getFixturePath('file2.json');
+test('gendiff flat json files', () => {
+  const filepath1 = getFixturePath('plain1.json');
+  const filepath2 = getFixturePath('plain2.json');
+  const filepath3 = getFixturePath('plain1');
+  const filepath4 = getFixturePath('plain2');
 
-  const expected = getDifference(filepath1, filepath2);
-  const result = readFile('json_plain');
+  const expected = readFile('plain_diff');
+  const received1 = getDifference(filepath1, filepath2);
+  const received2 = getDifference(filepath3, filepath4);
+  const received3 = getDifference(filepath1, filepath4);
 
-  expect(expected).toEqual(result);
+  expect(received1).toEqual(expected);
+  expect(received2).toEqual(expected);
+  expect(received3).toEqual(expected);
+});
+
+test('gendiff flat yml files', () => {
+  const filepath1 = getFixturePath('plain1.yml');
+  const filepath2 = getFixturePath('plain2.yml');
+
+  const received = getDifference(filepath1, filepath2);
+  const expected = readFile('plain_diff');
+
+  expect(received).toEqual(expected);
 });
