@@ -57,7 +57,7 @@ test('gendiff nested yml files', () => {
   expect(received).toEqual(expected);
 });
 
-test('gendiff plain_style json files', () => {
+test('gendiff test -format plain', () => {
   const filepath1 = getFixturePath('nested1.json');
   const filepath2 = getFixturePath('nested2.json');
 
@@ -65,4 +65,13 @@ test('gendiff plain_style json files', () => {
   const expected = readFile('nested_plain-style_diff');
 
   expect(received).toEqual(expected);
+});
+
+test('gendiff test -format json', () => {
+  const filepath1 = getFixturePath('nested1.json');
+  const filepath2 = getFixturePath('nested2.json');
+
+  const received = getDifference(filepath1, filepath2, 'json');
+
+  expect(() => JSON.parse(received)).not.toThrow();
 });
