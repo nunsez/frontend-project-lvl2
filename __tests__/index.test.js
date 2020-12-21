@@ -11,67 +11,40 @@ const getFixturePath = (filename) =>
 const readFile = (filename) =>
   fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-test('gendiff flat json files', () => {
-  const filepath1 = getFixturePath('plain1.json');
-  const filepath2 = getFixturePath('plain2.json');
-  const filepath3 = getFixturePath('plain1');
-  const filepath4 = getFixturePath('plain2');
+describe('test gendiff parsers', () => {
+  const expected = readFile('stylish_diff');
 
-  const expected = readFile('plain_diff');
-  const received1 = getDifference(filepath1, filepath2);
-  const received2 = getDifference(filepath3, filepath4);
-  const received3 = getDifference(filepath1, filepath4);
+  test.each([
+    ['nested1.json', 'nested2.json'],
+    ['nested1.yml', 'nested2.yml'],
+    ['nested1', 'nested2.yml'],
+  ])('test %s %s files', (path1, path2) => {
+    const filepath1 = getFixturePath(path1);
+    const filepath2 = getFixturePath(path2);
+    const received = getDifference(filepath1, filepath2);
 
-  expect(received1).toEqual(expected);
-  expect(received2).toEqual(expected);
-  expect(received3).toEqual(expected);
+    expect(received).toEqual(expected);
+  });
 });
 
-test('gendiff flat yml files', () => {
-  const filepath1 = getFixturePath('plain1.yml');
-  const filepath2 = getFixturePath('plain2.yml');
-
-  const received = getDifference(filepath1, filepath2);
-  const expected = readFile('plain_diff');
-
-  expect(received).toEqual(expected);
-});
-
-test('gendiff nested json files', () => {
+describe('test gendiff formatters', () => {
   const filepath1 = getFixturePath('nested1.json');
   const filepath2 = getFixturePath('nested2.json');
 
-  const received = getDifference(filepath1, filepath2);
-  const expected = readFile('nested_diff');
+  test.each([
+    [undefined, 'stylish_diff'],
+    ['stylish', 'stylish_diff'],
+    ['plain', 'plain_diff'],
+  ])('%s format', (format, diff) => {
+    const received = getDifference(filepath1, filepath2, format);
+    const expected = readFile(diff);
 
-  expect(received).toEqual(expected);
-});
+    expect(received).toEqual(expected);
+  });
 
-test('gendiff nested yml files', () => {
-  const filepath1 = getFixturePath('nested1.yml');
-  const filepath2 = getFixturePath('nested2.yml');
+  test('json format', () => {
+    const received = getDifference(filepath1, filepath2, 'json');
 
-  const received = getDifference(filepath1, filepath2);
-  const expected = readFile('nested_diff');
-
-  expect(received).toEqual(expected);
-});
-
-test('gendiff test -format plain', () => {
-  const filepath1 = getFixturePath('nested1.json');
-  const filepath2 = getFixturePath('nested2.json');
-
-  const received = getDifference(filepath1, filepath2, 'plain');
-  const expected = readFile('nested_plain-style_diff');
-
-  expect(received).toEqual(expected);
-});
-
-test('gendiff test -format json', () => {
-  const filepath1 = getFixturePath('nested1.json');
-  const filepath2 = getFixturePath('nested2.json');
-
-  const received = getDifference(filepath1, filepath2, 'json');
-
-  expect(() => JSON.parse(received)).not.toThrow();
+    expect(() => JSON.parse(received)).not.toThrow();
+  });
 });
