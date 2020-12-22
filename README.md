@@ -21,6 +21,12 @@ make ci
 make link
 ```
 
+## Run tests
+```sh
+make test
+make test-coverage
+```
+
 ## Usage examples
 
 ### Output help information
