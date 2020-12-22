@@ -2,13 +2,13 @@ import _ from 'lodash';
 import parse from './parsers.js';
 import format from './formatters/index.js';
 
-const gendiff = (json1, json2) => {
+const getDifference = (json1, json2) => {
   const getTreeNode = (obj1, obj2, key) => {
     const oldVal = _.get(obj1, key);
     const newVal = _.get(obj2, key);
 
     if (_.isObject(oldVal) && _.isObject(newVal)) {
-      return { key, state: 'nested', children: gendiff(oldVal, newVal) };
+      return { key, state: 'nested', children: getDifference(oldVal, newVal) };
     }
     if (!_.has(obj1, key)) {
       return { key, value: newVal, state: 'added' };
@@ -31,13 +31,13 @@ const gendiff = (json1, json2) => {
   return result;
 };
 
-const getDifference = (filepath1, filepath2, formatName = 'stylish') => {
+const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
   const json1 = parse(filepath1);
   const json2 = parse(filepath2);
 
-  const difference = gendiff(json1, json2);
+  const difference = getDifference(json1, json2);
 
   return format(difference, formatName);
 };
 
-export default getDifference;
+export default gendiff;
