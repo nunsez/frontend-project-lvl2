@@ -27,6 +27,23 @@ make test
 make test-coverage
 ```
 
+## Gendiff API
+You can import the utility as a function:
+```javascript
+import gendiff from 'gendiff';
+
+const difference = gendiff(filepath1, filepath2, formatName);
+```
+First two arguments ```<filepath1>``` and ```<filepath2>``` are paths to files you want to compare. They are required.
+
+The third argument ```[formatName]``` is a string and is optional. It determines how the result is displayed. List of supported formats:
+
+* ```stylish``` (uses as default format)
+* ```plain```
+* ```json```
+
+Json is a structured format. It allows other programs to use the output for their work.
+
 ## Usage examples
 
 ### Output help information
