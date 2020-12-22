@@ -1,6 +1,6 @@
 {
   "name": "@hexlet/code",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Gendiff",
   "main": "index.js",
   "scripts": {
