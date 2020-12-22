@@ -5,7 +5,7 @@ import getDifference from '../src/gendiff.js';
 const program = new Command();
 
 program
-  .version('0.8.2')
+  .version('0.8.3')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')

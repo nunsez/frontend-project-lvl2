@@ -16,4 +16,7 @@ test:
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 
+link:
+	sudo npm link
+
 .PHONY: test

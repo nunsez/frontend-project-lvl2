@@ -17,18 +17,23 @@ _in developing..._
 ```sh
 git clone https://github.com/nunsez/frontend-project-lvl2.git
 cd frontend-project-lvl2/
-make install
+make ci
+make link
 ```
 
 ## Usage examples
 
-### Package installation and output of help information (gendiff -h)
+### Output help information
+[![asciicast](https://asciinema.org/a/380488.svg)](https://asciinema.org/a/380488)
 
-_asciinema in progress..._
+### Generate stylish difference between json/yml configs
+[![asciicast](https://asciinema.org/a/380489.svg)](https://asciinema.org/a/380489)
 
-### Example of working on files
+### Generate plain difference between yml/json configs
+[![asciicast](https://asciinema.org/a/380491.svg)](https://asciinema.org/a/380491)
 
-_asciinema in progress..._
+### Generate json difference between NOEXT(json)/yml configs
+[![asciicast](https://asciinema.org/a/380493.svg)](https://asciinema.org/a/380493)
 
 ### Hexlet tests and linter status:
 
