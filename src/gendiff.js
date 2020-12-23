@@ -36,7 +36,7 @@ const getDifference = (obj1, obj2) => {
   return result;
 };
 
-const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const extention1 = path.extname(filepath1).slice(1) || 'json';
   const extention2 = path.extname(filepath2).slice(1) || 'json';
 
@@ -54,4 +54,4 @@ const gendiff = (filepath1, filepath2, formatName = 'stylish') => {
   return format(difference, formatName);
 };
 
-export default gendiff;
+export default genDiff;

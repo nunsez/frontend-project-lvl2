@@ -23,7 +23,7 @@ const valueToString = (value, depth) => {
   return `{\n${indent.repeat(depth + 2)}${result}\n${indent.repeat(depth)}}`;
 };
 
-const convert = {
+const genStylishLine = {
   nested: ({ key, children }, depth, iter) =>
     `${indent.repeat(depth + 1)}${key}: {\n${iter(children, depth + 2)}
 ${indent.repeat(depth + 1)}}`,
@@ -40,7 +40,9 @@ ${indent.repeat(depth)}+ ${key}: ${valueToString(newValue, depth + 1)}`,
 
 const stylish = (tree) => {
   const iter = (nodes, depth) =>
-    nodes.map((node) => convert[node.state](node, depth, iter)).join('\n');
+    nodes
+      .map((node) => genStylishLine[node.state](node, depth, iter))
+      .join('\n');
 
   return `{\n${iter(tree, 1)}\n}`;
 };
