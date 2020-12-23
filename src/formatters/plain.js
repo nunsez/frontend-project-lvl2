@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const display = (value) => {
+const transform = (value) => {
   if (_.isObject(value)) {
     return `[complex value]`;
   }
@@ -12,25 +12,20 @@ const display = (value) => {
 };
 
 // prettier-ignore
+const convert = {
+  nested: ({ key, children }, path, iter) => iter(children, `${path}${key}.`),
+  added: ({ key, value }, path) =>
+    `Property '${path}${key}' was added with value: ${transform(value)}`,
+  removed: ({ key }, path) => `Property '${path}${key}' was removed`,
+  changed: ({ key, oldValue, newValue }, path) =>
+    `Property '${path}${key}' was updated. From ${transform(oldValue)} to ${transform(newValue)}`,
+  unchanged: () => 'unchanged',
+};
+
+// prettier-ignore
 const plain = (tree) => {
   const iter = (nodes, path) => nodes
-    .flatMap((node) => {
-      const { key, value, state, oldValue, children, newValue } = node;
-      if (state === 'nested') {
-        return iter(children, `${path}${key}.`);
-      }
-      if (state === 'added') {
-        return `Property '${path}${key}' was added with value: ${display(value)}`;
-      }
-      if (state === 'removed') {
-        return `Property '${path}${key}' was removed`;
-      }
-      if (state === 'changed') {
-        return `Property '${path}${key}' was updated. From ${display(oldValue)} to ${display(newValue)}`;
-      }
-
-      return 'unchanged';
-    })
+    .map((node) => convert[node.state](node, path, iter))
     .filter((item) => item !== 'unchanged')
     .join('\n');
 
