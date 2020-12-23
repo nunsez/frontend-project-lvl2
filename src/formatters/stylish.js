@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 const treeToObject = (tree) => {
   const result = tree.reduce((acc, item) => {
-    const { key, value, state, oldValue, children } = item;
+    const { key, newValue, state, oldValue, children, value } = item;
     if (state === 'nested') {
       _.set(acc, key, treeToObject(children));
     }
@@ -15,9 +15,9 @@ const treeToObject = (tree) => {
     if (state === 'added') {
       _.set(acc, `+${key}`, value);
     }
-    if (state === 'updated') {
+    if (state === 'changed') {
       _.set(acc, `-${key}`, oldValue);
-      _.set(acc, `+${key}`, value);
+      _.set(acc, `+${key}`, newValue);
     }
 
     return acc;

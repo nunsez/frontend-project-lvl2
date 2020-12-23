@@ -2,31 +2,39 @@ import _ from 'lodash';
 import parse from './parsers.js';
 import format from './formatters/index.js';
 
-const getDifference = (json1, json2) => {
-  const getTreeNode = (obj1, obj2, key) => {
-    const oldVal = _.get(obj1, key);
-    const newVal = _.get(obj2, key);
+const isObject = (value) =>
+  typeof value === 'object' && value.constructor !== Array;
 
-    if (_.isObject(oldVal) && _.isObject(newVal)) {
-      return { key, state: 'nested', children: getDifference(oldVal, newVal) };
-    }
+const getDifference = (obj1, obj2) => {
+  const getTreeNode = (key) => {
     if (!_.has(obj1, key)) {
-      return { key, value: newVal, state: 'added' };
+      return { key, state: 'added', value: _.get(obj2, key) };
     }
     if (!_.has(obj2, key)) {
-      return { key, value: oldVal, state: 'removed' };
-    }
-    if (_.has(obj1, key) && _.has(obj2, key) && oldVal !== newVal) {
-      return { key, value: newVal, state: 'updated', oldValue: oldVal };
+      return { key, state: 'removed', value: _.get(obj1, key) };
     }
 
-    return { key, value: oldVal, state: 'unchanged' };
+    const oldValue = _.get(obj1, key);
+    const newValue = _.get(obj2, key);
+
+    if (isObject(oldValue) && isObject(newValue)) {
+      return {
+        key,
+        state: 'nested',
+        children: getDifference(oldValue, newValue),
+      };
+    }
+    if (oldValue !== newValue) {
+      return { key, state: 'changed', newValue, oldValue };
+    }
+
+    return { key, state: 'unchanged', value: oldValue };
   };
 
-  const keys1 = _.keys(json1);
-  const keys2 = _.keys(json2);
+  const keys1 = _.keys(obj1);
+  const keys2 = _.keys(obj2);
   const allKeys = _.union(keys1, keys2).sort();
-  const result = allKeys.map((key) => getTreeNode(json1, json2, key));
+  const result = allKeys.map(getTreeNode);
 
   return result;
 };

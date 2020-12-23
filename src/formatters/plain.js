@@ -15,7 +15,7 @@ const display = (value) => {
 const plain = (tree) => {
   const iter = (nodes, path) => nodes
     .flatMap((node) => {
-      const { key, value, state, oldValue, children } = node;
+      const { key, value, state, oldValue, children, newValue } = node;
       if (state === 'nested') {
         return iter(children, `${path}${key}.`);
       }
@@ -25,8 +25,8 @@ const plain = (tree) => {
       if (state === 'removed') {
         return `Property '${path}${key}' was removed`;
       }
-      if (state === 'updated') {
-        return `Property '${path}${key}' was updated. From ${display(oldValue)} to ${display(value)}`;
+      if (state === 'changed') {
+        return `Property '${path}${key}' was updated. From ${display(oldValue)} to ${display(newValue)}`;
       }
 
       return 'unchanged';
