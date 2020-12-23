@@ -1,11 +1,7 @@
-import path from 'path';
-import fs from 'fs';
 import _ from 'lodash';
-import parse from './parsers.js';
-import format from './formatters/index.js';
 import { isObject } from './formatters/stylish.js';
 
-const getDifference = (obj1, obj2) => {
+const genDiff = (obj1, obj2) => {
   const getTreeNode = (key) => {
     if (!_.has(obj1, key)) {
       return { key, state: 'added', value: _.get(obj2, key) };
@@ -19,7 +15,7 @@ const getDifference = (obj1, obj2) => {
 
     // prettier-ignore
     if (isObject(oldValue) && isObject(newValue)) {
-      return { key, state: 'nested', children: getDifference(oldValue, newValue) };
+      return { key, state: 'nested', children: genDiff(oldValue, newValue) };
     }
     if (oldValue !== newValue) {
       return { key, state: 'changed', newValue, oldValue };
@@ -34,24 +30,6 @@ const getDifference = (obj1, obj2) => {
   const result = allKeys.map(getTreeNode);
 
   return result;
-};
-
-const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
-  const extention1 = path.extname(filepath1).slice(1) || 'json';
-  const extention2 = path.extname(filepath2).slice(1) || 'json';
-
-  const validPath1 = path.resolve(process.cwd(), filepath1);
-  const validPath2 = path.resolve(process.cwd(), filepath2);
-
-  const data1 = fs.readFileSync(validPath1, 'utf-8');
-  const data2 = fs.readFileSync(validPath2, 'utf-8');
-
-  const json1 = parse(data1, extention1);
-  const json2 = parse(data2, extention2);
-
-  const difference = getDifference(json1, json2);
-
-  return format(difference, formatName);
 };
 
 export default genDiff;
