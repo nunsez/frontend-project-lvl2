@@ -3,7 +3,7 @@ import { program } from 'commander';
 import getDifference from '../src/gendiff.js';
 
 program
-  .version('0.8.4')
+  .version('0.8.5')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
