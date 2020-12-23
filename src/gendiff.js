@@ -3,7 +3,7 @@ import parse from './parsers.js';
 import format from './formatters/index.js';
 
 const isObject = (value) =>
-  typeof value === 'object' && value.constructor !== Array;
+  typeof value === 'object' && value !== null && value.constructor !== Array;
 
 const getDifference = (obj1, obj2) => {
   const getTreeNode = (key) => {
