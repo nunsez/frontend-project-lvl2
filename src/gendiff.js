@@ -3,9 +3,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import parse from './parsers.js';
 import format from './formatters/index.js';
-
-const isObject = (value) =>
-  typeof value === 'object' && value !== null && value.constructor !== Array;
+import { isObject } from './formatters/stylish.js';
 
 const getDifference = (obj1, obj2) => {
   const getTreeNode = (key) => {

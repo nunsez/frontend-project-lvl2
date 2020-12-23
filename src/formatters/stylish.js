@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const isObject = (value) =>
+export const isObject = (value) =>
   typeof value === 'object' && value !== null && value.constructor !== Array;
 
 const indent = ' '.repeat(2);
