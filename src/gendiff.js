@@ -17,12 +17,9 @@ const getDifference = (obj1, obj2) => {
     const oldValue = _.get(obj1, key);
     const newValue = _.get(obj2, key);
 
+    // prettier-ignore
     if (isObject(oldValue) && isObject(newValue)) {
-      return {
-        key,
-        state: 'nested',
-        children: getDifference(oldValue, newValue),
-      };
+      return { key, state: 'nested', children: getDifference(oldValue, newValue) };
     }
     if (oldValue !== newValue) {
       return { key, state: 'changed', newValue, oldValue };
