@@ -56,16 +56,16 @@ Json is a structured format. It allows other programs to use the output for thei
 
 ### Output help information
 
-[![asciicast](https://asciinema.org/a/380488.svg)](https://asciinema.org/a/380488)
+[![asciicast](https://asciinema.org/a/Wh8STqyoWdzysqX5YvCxwz8fC.svg)](https://asciinema.org/a/Wh8STqyoWdzysqX5YvCxwz8fC)
 
 ### Generate stylish difference between json/yml configs
 
-[![asciicast](https://asciinema.org/a/380489.svg)](https://asciinema.org/a/380489)
+[![asciicast](https://asciinema.org/a/YYBVE0lcg7kQHxkiCdqMmmLV0.svg)](https://asciinema.org/a/YYBVE0lcg7kQHxkiCdqMmmLV0)
 
 ### Generate plain difference between yml/json configs
 
-[![asciicast](https://asciinema.org/a/380491.svg)](https://asciinema.org/a/380491)
+[![asciicast](https://asciinema.org/a/XBtQIJ2E2Avvye6PlHIZT5fSg.svg)](https://asciinema.org/a/XBtQIJ2E2Avvye6PlHIZT5fSg)
 
 ### Generate json difference between yml/yml configs
 
-[![asciicast](https://asciinema.org/a/380493.svg)](https://asciinema.org/a/380493)
+[![asciicast](https://asciinema.org/a/laWfPEfz2qlU5ijhdmMwphzXH.svg)](https://asciinema.org/a/laWfPEfz2qlU5ijhdmMwphzXH)
