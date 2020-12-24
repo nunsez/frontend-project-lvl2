@@ -5,8 +5,8 @@ import format from './formatters/index.js';
 import genDiff from './gendiff.js';
 
 export default (filepath1, filepath2, formatName = 'stylish') => {
-  const extention1 = path.extname(filepath1).slice(1) || 'json';
-  const extention2 = path.extname(filepath2).slice(1) || 'json';
+  const extention1 = path.extname(filepath1).slice(1);
+  const extention2 = path.extname(filepath2).slice(1);
 
   const validPath1 = path.resolve(process.cwd(), filepath1);
   const validPath2 = path.resolve(process.cwd(), filepath2);
