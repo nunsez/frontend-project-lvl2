@@ -1,12 +1,9 @@
 import _ from 'lodash';
 
-export const isObject = (value) =>
-  typeof value === 'object' && value !== null && value.constructor !== Array;
-
 const indent = ' '.repeat(4);
 
 const valueToString = (value, depth) => {
-  if (!isObject(value)) {
+  if (!_.isPlainObject(value)) {
     return value;
   }
 

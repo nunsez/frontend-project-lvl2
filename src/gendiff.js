@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { isObject } from './formatters/stylish.js';
 
 const genDiff = (obj1, obj2) => {
   const getTreeNode = (key) => {
@@ -14,7 +13,7 @@ const genDiff = (obj1, obj2) => {
     const newValue = _.get(obj2, key);
 
     // prettier-ignore
-    if (isObject(oldValue) && isObject(newValue)) {
+    if (_.isPlainObject(oldValue) && _.isPlainObject(newValue)) {
       return { key, state: 'nested', children: genDiff(oldValue, newValue) };
     }
     if (oldValue !== newValue) {
