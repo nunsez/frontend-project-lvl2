@@ -1,41 +1,50 @@
 import _ from 'lodash';
 
-const indent = ' '.repeat(4);
+const indent = ' ';
+const indentCount = 4;
+const setSpaces = (depth, backSpaceCount = 0) =>
+  indent.repeat(indentCount * depth - backSpaceCount);
 
-const valueToString = (value, depth) => {
-  if (!_.isPlainObject(value)) {
-    return value;
+const valueToString = (data, depth = 1) => {
+  if (!_.isObject(data)) {
+    return data;
   }
 
-  const keys = _.keys(value);
-  // prettier-ignore
-  const result = keys.reduce((acc, key) => {
-    if (acc === '') {
-      return `${key}: ${valueToString(value[key], depth + 1)}`;
-    }
+  const arrayToString = () => {
+    const result = data
+      .map((item) => `${setSpaces(depth)}${valueToString(item, depth + 1)}`)
+      .join('\n');
 
-    return `${acc}\n${indent.repeat(depth)}${key}: ${valueToString(value[key], depth + 1)}`;
-  }, '');
+    return `[\n${result}\n${setSpaces(depth - 1)}]`;
+  };
 
-  return `{\n${indent.repeat(depth)}${result}\n${indent.repeat(depth - 1)}}`;
+  const objectToString = () => {
+    const result = _.entries(data)
+      .map(
+        ([key, value]) =>
+          `${setSpaces(depth)}${key}: ${valueToString(value, depth + 1)}`
+      )
+      .join('\n');
+
+    return `{\n${result}\n${setSpaces(depth - 1)}}`;
+  };
+
+  return _.isArray(data) ? arrayToString() : objectToString();
 };
 
 const genStylishLine = {
   nested: ({ key, children }, depth, iter) =>
-    `${indent.repeat(depth)}${key}: {\n${iter(children, depth + 1)}
-${indent.repeat(depth)}}`,
+    `${setSpaces(depth)}${key}: {\n${iter(children, depth + 1)}
+${setSpaces(depth)}}`,
   added: ({ key, value }, depth) =>
-    `${indent.repeat(depth - 1)}  + ${key}: ${valueToString(value, depth + 1)}`,
+    `${setSpaces(depth, 2)}+ ${key}: ${valueToString(value, depth + 1)}`,
   removed: ({ key, value }, depth) =>
-    `${indent.repeat(depth - 1)}  - ${key}: ${valueToString(value, depth + 1)}`,
+    `${setSpaces(depth, 2)}- ${key}: ${valueToString(value, depth + 1)}`,
   changed: ({ key, oldValue, newValue }, depth) =>
-    `${indent.repeat(depth - 1)}  - ${key}: ${valueToString(
-      oldValue,
-      depth + 1
-    )}
-${indent.repeat(depth - 1)}  + ${key}: ${valueToString(newValue, depth + 1)}`,
+    `${setSpaces(depth, 2)}- ${key}: ${valueToString(oldValue, depth + 1)}
+${setSpaces(depth, 2)}+ ${key}: ${valueToString(newValue, depth + 1)}`,
   unchanged: ({ key, value }, depth) =>
-    `${indent.repeat(depth)}${key}: ${valueToString(value)}`,
+    `${setSpaces(depth)}${key}: ${valueToString(value)}`,
 };
 
 const stylish = (tree) => {
