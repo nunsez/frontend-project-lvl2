@@ -11,43 +11,21 @@ const getFixturePath = (filename) =>
 const readFile = (filename) =>
   fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const json1 = getFixturePath('nested1.json');
-const json2 = getFixturePath('nested2.json');
-const yml1 = getFixturePath('nested1.yml');
-const yml2 = getFixturePath('nested2.yml');
 const stylishDiff = readFile('stylish_diff');
 const plainDiff = readFile('plain_diff');
+const jsonDiff = readFile('json_diff');
 
-describe('json type tests', () => {
+describe.each(['json', 'yml'])('test .%s files', (extention) => {
+  const filepath1 = getFixturePath(`file1.${extention}`);
+  const filepath2 = getFixturePath(`file2.${extention}`);
+
   test.each([
     ['stylish', stylishDiff],
     ['plain', plainDiff],
-  ])('%s formater', (format, expected) => {
-    const received = genDiff(json1, yml2, format);
+    ['json', jsonDiff],
+  ])('%s formatter', (formatName, expected) => {
+    const received = genDiff(filepath1, filepath2, formatName);
 
     expect(received).toEqual(expected);
-  });
-
-  test('json formater', () => {
-    const received = genDiff(json1, yml2, 'json');
-
-    expect(() => JSON.parse(received)).not.toThrow();
-  });
-});
-
-describe('yml type tests', () => {
-  test.each([
-    ['stylish', stylishDiff],
-    ['plain', plainDiff],
-  ])('%s formater', (format, expected) => {
-    const received = genDiff(yml1, json2, format);
-
-    expect(received).toEqual(expected);
-  });
-
-  test('json formater', () => {
-    const received = genDiff(yml1, json2, 'json');
-
-    expect(() => JSON.parse(received)).not.toThrow();
   });
 });
