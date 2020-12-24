@@ -14,10 +14,10 @@ export default (filepath1, filepath2, formatName = 'stylish') => {
   const data1 = fs.readFileSync(validPath1, 'utf-8');
   const data2 = fs.readFileSync(validPath2, 'utf-8');
 
-  const json1 = parse(data1, extention1);
-  const json2 = parse(data2, extention2);
+  const object1 = parse(data1, extention1);
+  const object2 = parse(data2, extention2);
 
-  const difference = genDiff(json1, json2);
+  const difference = genDiff(object1, object2);
 
   return format(difference, formatName);
 };
