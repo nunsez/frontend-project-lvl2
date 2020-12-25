@@ -2,7 +2,7 @@
 
 ### Hexlet tests and linter status:
 
-![Actions Status](/workflows/hexlet-check/badge.svg)
+![Actions Status](https://github.com/nunsez/frontend-project-lvl2/blob/main/workflows/hexlet-check/badge.svg)
 
 [![Node.js CI](https://github.com/nunsez/frontend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/nunsez/frontend-project-lvl2/actions?query=workflow%3A%22Node.js+CI%22)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e4451e5ff95f4cefe9bd/maintainability)](https://codeclimate.com/github/nunsez/frontend-project-lvl2/maintainability)
