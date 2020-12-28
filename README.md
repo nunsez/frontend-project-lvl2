@@ -1,13 +1,9 @@
 # Hexlet. Gendiff. Frontend project lvl 2.
 
-### Hexlet tests and linter status:
-
-![Actions Status](https://github.com/nunsez/frontend-project-lvl2/blob/main/workflows/hexlet-check/badge.svg)
-
+![hexlet-check](https://github.com/nunsez/frontend-project-lvl2/workflows/hexlet-check/badge.svg)
 [![Node.js CI](https://github.com/nunsez/frontend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/nunsez/frontend-project-lvl2/actions?query=workflow%3A%22Node.js+CI%22)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e4451e5ff95f4cefe9bd/maintainability)](https://codeclimate.com/github/nunsez/frontend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e4451e5ff95f4cefe9bd/test_coverage)](https://codeclimate.com/github/nunsez/frontend-project-lvl2/test_coverage)
-_awaiting mentor review..._
 
 **Gendiff** - a program that calculates the difference between two data structures. This is a popular problem, for which there are many online services ([JSON Diff](http://www.jsondiff.com/)). A similar mechanism, for example, is used when outputting tests or when automatically tracking changes in configuration files.
 
