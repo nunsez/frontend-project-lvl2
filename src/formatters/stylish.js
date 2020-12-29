@@ -2,7 +2,10 @@ import _ from 'lodash';
 
 const indent = ' ';
 const indentCount = 4;
-const setSpaces = (depth, backSpaceCount = 0) => indent.repeat(indentCount * depth - backSpaceCount);
+// prettier-ignore
+const setSpaces = (depth, backSpaceCount = 0) => (
+  indent.repeat(indentCount * depth - backSpaceCount)
+);
 
 const valueToString = (data, depth = 1) => {
   if (!_.isObject(data)) {
@@ -10,7 +13,9 @@ const valueToString = (data, depth = 1) => {
   }
 
   const arrayToString = () => {
-    const result = data.map((item) => `${setSpaces(depth)}${valueToString(item, depth + 1)}`).join('\n');
+    const result = data
+      .map((item) => `${setSpaces(depth)}${valueToString(item, depth + 1)}`)
+      .join('\n');
 
     return `[\n${result}\n${setSpaces(depth - 1)}]`;
   };
