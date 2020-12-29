@@ -45,7 +45,7 @@ const genDiff = (obj1, obj2) => {
 
   const keys1 = _.keys(obj1);
   const keys2 = _.keys(obj2);
-  const allKeys = _.sort(_.union(keys1, keys2));
+  const allKeys = _.sortBy(_.union(keys1, keys2));
   const result = allKeys.map(getTreeNode);
 
   return result;
