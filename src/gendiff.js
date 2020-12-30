@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import _ from 'lodash';
 
 const genDiff = (obj1, obj2) => {
