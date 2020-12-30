@@ -14,7 +14,9 @@ const formatValue = (value) => {
 // prettier-ignore
 const genPlainLine = {
   nested: ({ key, children }, path, iter) => iter(children, `${path}${key}.`),
-  added: ({ key, value }, path) => `Property '${path}${key}' was added with value: ${formatValue(value)}`,
+  added: ({ key, value }, path) => (
+    `Property '${path}${key}' was added with value: ${formatValue(value)}`
+  ),
   removed: ({ key }, path) => `Property '${path}${key}' was removed`,
   changed: ({ key, oldValue, newValue }, path) => (
     `Property '${path}${key}' was updated. From ${formatValue(oldValue)} to ${formatValue(newValue)}`

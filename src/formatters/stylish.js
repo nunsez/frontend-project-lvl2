@@ -33,12 +33,19 @@ const valueToString = (data, depth = 1) => {
 
 // prettier-ignore
 const genStylishLine = {
-  nested: ({ key, children }, depth, iter) => `${setSpaces(depth)}${key}: {\n${iter(children, depth + 1)}
-${setSpaces(depth)}}`,
-  added: ({ key, value }, depth) => `${setSpaces(depth, 2)}+ ${key}: ${valueToString(value, depth + 1)}`,
-  removed: ({ key, value }, depth) => `${setSpaces(depth, 2)}- ${key}: ${valueToString(value, depth + 1)}`,
-  changed: ({ key, oldValue, newValue }, depth) => `${setSpaces(depth, 2)}- ${key}: ${valueToString(oldValue, depth + 1)}
-${setSpaces(depth, 2)}+ ${key}: ${valueToString(newValue, depth + 1)}`,
+  nested: ({ key, children }, depth, iter) => (
+    `${setSpaces(depth)}${key}: {\n${iter(children, depth + 1)}\n${setSpaces(depth)}}`
+  ),
+  added: ({ key, value }, depth) => (
+    `${setSpaces(depth, 2)}+ ${key}: ${valueToString(value, depth + 1)}`
+  ),
+  removed: ({ key, value }, depth) => (
+    `${setSpaces(depth, 2)}- ${key}: ${valueToString(value, depth + 1)}`
+  ),
+  changed: ({ key, oldValue, newValue }, depth) => (
+    `${setSpaces(depth, 2)}- ${key}: ${valueToString(oldValue, depth + 1)}
+${setSpaces(depth, 2)}+ ${key}: ${valueToString(newValue, depth + 1)}`
+  ),
   unchanged: ({ key, value }, depth) => `${setSpaces(depth)}${key}: ${valueToString(value)}`,
 };
 
